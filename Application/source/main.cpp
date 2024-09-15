@@ -1,10 +1,19 @@
 #include<iostream>
-#include "TempClass.h"
+#include "Application.h"
 
 
 int main() {
 	
-	TempClass t;
-	std::cout << t.test << std::endl;
+	using namespace Engine;
+
+	Application engineApp;
+
+	if(engineApp.Initialize())
+	{
+		while (engineApp.IsRunning())
+		{
+			engineApp.Update();
+	   }
+	}
 	return 0;
 }
