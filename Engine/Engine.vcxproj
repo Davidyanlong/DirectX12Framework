@@ -51,7 +51,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Windows Kits\10\Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -70,7 +70,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Program Files (x86)\Windows Kits\10\Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,16 +82,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\RenderAPI\DirectX12\Debug\DXGIDebug.h" />
+    <ClInclude Include="source\RenderAPI\DirectX12\Debug\D12Debug.h" />
+    <ClInclude Include="source\RenderAPI\DirectX12\Base\D12Device.h" />
     <ClInclude Include="source\Application.h" />
     <ClInclude Include="source\EngineMin.h" />
+    <ClInclude Include="source\Helper.h" />
     <ClInclude Include="source\pch.h" />
+    <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.h" />
+    <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.h" />
+    <ClInclude Include="source\RenderAPI\RenderAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\RenderAPI\DirectX12\Debug\DXGIDebug.cpp" />
+    <ClCompile Include="source\RenderAPI\DirectX12\Debug\D12Debug.cpp" />
+    <ClCompile Include="source\RenderAPI\DirectX12\Base\D12Device.cpp" />
     <ClCompile Include="source\Application.cpp" />
     <ClCompile Include="source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.cpp" />
+    <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.cpp" />
+    <ClCompile Include="source\RenderAPI\RenderAPI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

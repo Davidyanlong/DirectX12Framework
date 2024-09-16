@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "Application.h"
 
-#include <windowsx.h>
+//#include <windowsx.h>
 #include<iostream>
 
+#include "RenderAPI/DirectX12//Debug//DXGIDebug.h"
 
 
 namespace Engine {
@@ -75,6 +76,7 @@ namespace Engine {
 	void Application::OnCreate(HWND hwnd)
 	{
 		std::cout << "Created the actual window" << std::endl;
+		mRenderer.Initialize(hwnd);
 	}
 
 	void Application::Update()
@@ -90,6 +92,8 @@ namespace Engine {
 	{
 
 		std::cout << "Closed the window - shutting down application" << std::endl;
+
+		DXGIDebug::Get().GetLiveObjects();
 		mIsRunning = false;
 
 	}

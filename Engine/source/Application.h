@@ -1,7 +1,10 @@
 #pragma once
 
-#include <Windows.h>
 #include "EngineMin.h"
+
+#include <Windows.h>
+
+#include "RenderAPI/RenderAPI.h"
 
 namespace Engine {
 	class YT_API Application
@@ -19,7 +22,11 @@ namespace Engine {
 
 		inline bool IsRunning() { return mIsRunning; }
 
-	private:
+	private:   // subsystems
+
+		RenderAPI mRenderer;
+
+	private:   // variables
 		bool mIsRunning = false;
 		HWND mWindowHandle = nullptr;
 	};

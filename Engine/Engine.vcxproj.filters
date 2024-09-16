@@ -24,12 +24,51 @@
     <ClInclude Include="source\Application.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="source\RenderAPI\RenderAPI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Helper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderAPI\DirectX12\Base\D12Device.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderAPI\DirectX12\Debug\D12Debug.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderAPI\DirectX12\Debug\DXGIDebug.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="source\Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderAPI\RenderAPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\Base\D12Device.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\Debug\D12Debug.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\Debug\DXGIDebug.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

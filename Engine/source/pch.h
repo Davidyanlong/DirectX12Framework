@@ -2,7 +2,22 @@
 #ifndef PCH_H
 #define PCH_H
 
-// 添加要在此处预编译的标头
+#include<iostream>
+
+// Directx headers:
+
+#include <d3d12.h>
+#include <dxgi1_6.h>
+#include <dxgidebug.h>
+
+// compiled lib files for d12
+
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "D3D12.lib")
+#pragma comment(lib, "dxguid.lib")
+
 #include "EngineMin.h"
+#include "Helper.h"
+
 
 #endif //PCH_H
