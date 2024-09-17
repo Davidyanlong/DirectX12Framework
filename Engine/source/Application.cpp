@@ -93,6 +93,8 @@ namespace Engine {
 
 		std::cout << "Closed the window - shutting down application" << std::endl;
 
+		mRenderer.Release();
+
 		DXGIDebug::Get().GetLiveObjects();
 		mIsRunning = false;
 

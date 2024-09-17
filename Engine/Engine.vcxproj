@@ -82,6 +82,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\RenderAPI\DirectX12\Commands\D12CommandList.h" />
+    <ClInclude Include="source\RenderAPI\DirectX12\Commands\D12CommandQueue.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\Debug\DXGIDebug.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\Debug\D12Debug.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\Base\D12Device.h" />
@@ -94,6 +96,8 @@
     <ClInclude Include="source\RenderAPI\RenderAPI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\RenderAPI\DirectX12\Commands\D12CommandList.cpp" />
+    <ClCompile Include="source\RenderAPI\DirectX12\Commands\D12CommandQueue.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\Debug\DXGIDebug.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\Debug\D12Debug.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\Base\D12Device.cpp" />
