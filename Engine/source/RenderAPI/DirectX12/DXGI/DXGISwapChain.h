@@ -19,6 +19,8 @@ namespace Engine {
 
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCurrentRTVHandle();
 
+		inline ID3D12Resource* GetCurrentRenderTarget() { return mRenderTargets[mCurrentBuffer].Get(); }
+
 		void Release();
 
 	private:
