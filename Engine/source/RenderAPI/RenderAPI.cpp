@@ -11,8 +11,11 @@ namespace Engine {
 	{
 		Release();
 	}
-	void RenderAPI::Initialize(HWND hwnd)
+	void RenderAPI::Initialize(HWND hwnd, const UINT width, const UINT height)
 	{
+
+		mWidth = width;
+		mHeight = height;
 
 		// this could be disabled during non-debug-builds
 		D12Debug::Get().Enable();
@@ -35,10 +38,19 @@ namespace Engine {
 
 		mCommandQueue.Initialize(mDevice.Get());
 		mCommandList.Initialize(mDevice.Get());
+
+		mSwapChain.Initialize(mDevice.Get(), factory.Get(), mCommandQueue.Get(), hwnd, mWidth, mHeight);
+	}
+
+	void RenderAPI::UpdateDraw()
+	{
+
 	}
 
 	void RenderAPI::Release()
 	{
+		mSwapChain.Release();
+
 		mCommandList.Release();
 
 		mCommandQueue.Release();

@@ -18,6 +18,7 @@
 
 #include "EngineMin.h"
 #include "Helper.h"
+#include "EngineSetting.h"
 
 
 #endif //PCH_H

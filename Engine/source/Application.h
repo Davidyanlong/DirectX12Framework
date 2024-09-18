@@ -29,6 +29,10 @@ namespace Engine {
 	private:   // variables
 		bool mIsRunning = false;
 		HWND mWindowHandle = nullptr;
+
+	private:
+		UINT mWidth = 1280;
+		UINT mHeight = 720;
 	};
 
 }
