@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\EngineSetting.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\Commands\D12CommandList.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\Commands\D12CommandQueue.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\Debug\DXGIDebug.h" />
@@ -93,6 +94,7 @@
     <ClInclude Include="source\pch.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.h" />
+    <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGISwapChain.h" />
     <ClInclude Include="source\RenderAPI\RenderAPI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +110,7 @@
     </ClCompile>
     <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.cpp" />
+    <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGISwapChain.cpp" />
     <ClCompile Include="source\RenderAPI\RenderAPI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
