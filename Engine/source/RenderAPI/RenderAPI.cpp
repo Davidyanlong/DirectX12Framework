@@ -7,6 +7,8 @@
 
 namespace Engine {
 
+	using namespace Render;
+
 	RenderAPI::~RenderAPI()
 	{
 		Release();
@@ -40,6 +42,34 @@ namespace Engine {
 		mCommandList.Initialize(mDevice.Get());
 
 		mSwapChain.Initialize(mDevice.Get(), factory.Get(), mCommandQueue.Get(), hwnd, mWidth, mHeight);
+
+
+		mDynamicVertexBuffer.Initialize(mDevice.Get(), KBs(16), D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_GENERIC_READ);
+		mDynamicVertexBuffer.Get()->SetName(L"Dynamic vertex buffer");
+
+		Vertex vertexData;
+		vertexData.position = { 1.0f, 5.0f, 3.0f };
+		vertexData.color = { 0.0f, 1.0f, 0.0f, 1.0f };
+
+		void* destination = nullptr;
+
+		mDynamicVertexBuffer->Map(0, 0, &destination);
+
+		memcpy(destination, &vertexData, sizeof(Vertex));
+
+		mDynamicVertexBuffer->Unmap(0, 0);
+
+		/*
+		//ONLY CPU = default ram / cache
+		//ONLY GPU = default heap on GPU (VRAM)
+		//Shared CPU and GPU = with read/write for all - it's stored on the GPU
+		//Readback memory on GPU (With Read from the CPU)
+
+
+		*/
+
+
+
 	}
 
 	void RenderAPI::UpdateDraw()
@@ -86,6 +116,9 @@ namespace Engine {
 
 	void RenderAPI::Release()
 	{
+
+
+		mDynamicVertexBuffer.Release();
 
 		mCommandQueue.FlushQueue();
 

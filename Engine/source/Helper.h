@@ -1,6 +1,7 @@
 #pragma once
 #include <exception>
 
+#define KBs(x) 1024 * (x)
 
 #define YT_EVAL_HR(hr, error) if(hr != S_OK) { std::cout << "API Error: " << error << " At file: " << __FILE__ << std::endl; }
 #define PRINT_W_N(message) std::wcout << message << std::endl;

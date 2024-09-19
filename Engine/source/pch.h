@@ -10,6 +10,8 @@
 #include <dxgi1_6.h>
 #include <dxgidebug.h>
 
+#include <DirectXMath.h>
+
 // compiled lib files for d12
 
 #pragma comment(lib, "dxgi.lib")

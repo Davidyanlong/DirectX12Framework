@@ -84,9 +84,10 @@ namespace Engine {
 	void DXGISwapChain::Release()
 	{
 		if (Get()) {
-			Reset();
+			
 			DropBuffers();
 			mRTVHeap.Reset();
+			Reset();
 		}
 	}
 }
