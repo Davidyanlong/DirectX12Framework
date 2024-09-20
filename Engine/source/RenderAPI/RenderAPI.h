@@ -10,6 +10,7 @@
 #include "DirectX12/Commands/D12CommandQueue.h"
 #include  "DirectX12/Commands/D12CommandList.h"
 #include "DirectX12/Resource/D12Resource.h"
+#include "DirectX12/Pipeline/D12PipelineState.h"
 
 namespace Engine {
 class YT_API RenderAPI
@@ -23,12 +24,16 @@ public:
 	void UpdateDraw();
 
 	void Release();
+
 private:
+
 	D12Device mDevice;
 	D12CommandQueue mCommandQueue;
 	D12CommandList mCommandList;
 
 	DXGISwapChain mSwapChain;
+
+	D12PipelineState mBasePipeline;
 
 	D12Resorce mDynamicVertexBuffer;
 

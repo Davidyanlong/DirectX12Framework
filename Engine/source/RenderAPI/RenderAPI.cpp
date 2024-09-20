@@ -4,8 +4,7 @@
 #include "DirectX12/DXGI/DXGIFactory.h"
 #include "DirectX12/DXGI/DXGIAdapter.h"
 #include "DirectX12/Debug/D12Debug.h"
-#include "DirectX12/Pipeline/HLSLShader.h"
-#include "DirectX12/Pipeline/D12RootSignature.h"
+
 
 namespace Engine {
 
@@ -62,11 +61,7 @@ namespace Engine {
 
 		mDynamicVertexBuffer->Unmap(0, 0);
 
-		HLSLShader testShader;
-		testShader.Initialize(L"shaders/VS.hlsl", HLSLShader::ShaderType::VERTEX);
-
-		D12RootSignature rstest;
-		rstest.Initialize(mDevice.Get());
+		mBasePipeline.Initialize(mDevice.Get());
 
 
 
