@@ -63,6 +63,9 @@
     <ClInclude Include="source\RenderAPI\RenderDataTypes.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="source\RenderAPI\DirectX12\Pipeline\HLSLShader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\pch.cpp">
@@ -99,6 +102,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="source\RenderAPI\DirectX12\Resource\D12Resource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\Pipeline\HLSLShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "DirectX12/DXGI/DXGIFactory.h"
 #include "DirectX12/DXGI/DXGIAdapter.h"
 #include "DirectX12/Debug/D12Debug.h"
+#include "DirectX12/Pipeline/HLSLShader.h"
 
 namespace Engine {
 
@@ -51,6 +52,7 @@ namespace Engine {
 		vertexData.position = { 1.0f, 5.0f, 3.0f };
 		vertexData.color = { 0.0f, 1.0f, 0.0f, 1.0f };
 
+		// could be part of the wrapper for the resource, which would store the CPU sided pointer to he memory location
 		void* destination = nullptr;
 
 		mDynamicVertexBuffer->Map(0, 0, &destination);
@@ -58,6 +60,33 @@ namespace Engine {
 		memcpy(destination, &vertexData, sizeof(Vertex));
 
 		mDynamicVertexBuffer->Unmap(0, 0);
+
+		HLSLShader testShader;
+		testShader.Initialize(L"shaders/VS.hlsl", HLSLShader::ShaderType::VERTEX);
+
+
+
+
+		/*
+
+
+
+		Create shader programs
+		- Wrapper for the shaders and their compliations
+		- Create the actual shaders/program
+		Setup two input layouts (one for vertex/index buffers + one for datastructures needed for the pipeline/shader programs)
+		- The pipeline input state
+			- Wrapper?
+		- The root signature
+		- Wrapper
+		Set up the actual pipeline
+		- Wrapper
+		-- Simply set parameters
+		- Create the functionality that couples everything into a complete pipeline
+
+
+		*/
+
 
 		/*
 		//ONLY CPU = default ram / cache
