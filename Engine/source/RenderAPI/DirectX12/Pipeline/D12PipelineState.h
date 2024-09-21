@@ -16,6 +16,8 @@ namespace Engine {
 
 		void Release();
 
+		inline ID3D12RootSignature* GetRS() { return mRootSignature.Get; }
+
 	private:
 		D12RootSignature mRootSignature;
 		HLSLShader mShaders[2];
