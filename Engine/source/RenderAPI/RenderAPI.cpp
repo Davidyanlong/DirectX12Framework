@@ -9,6 +9,8 @@
 
 #include "DirectX12/Debug/D12Debug.h"
 
+#include "../Utilities/Utilities.h"
+
 
 
 
@@ -80,16 +82,8 @@ namespace Engine {
 		}
 
 
-		//could be part of the wrapper for the reousrce, which would store the CPU sided pointer to the memory location
-		void* destination = nullptr;
 
-		mDynamicVertexBuffer->Map(0, 0, &destination);
-
-		//memcpy(destination, &vertexData, sizeof(Vertex));
-
-		memcpy(destination, vertices.data(), sizeof(Vertex) * vertices.size());
-
-		mDynamicVertexBuffer->Unmap(0, 0);
+		memcpy(mDynamicVertexBuffer.GetCPUMemory(), vertices.data(), sizeof(Vertex) * vertices.size());
 
 
 		mDynamicVBView.BufferLocation = mDynamicVertexBuffer.Get()->GetGPUVirtualAddress();
@@ -132,7 +126,7 @@ namespace Engine {
 
 		mViewProjectionMatrix = viewMatrix * projectionMatrix;
 
-
+		mCBPassData.Initialize(mDevice.Get(), Utils::CalculateConstantbufferAlignment(sizeof(PassData)), D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_GENERIC_READ);
 
 
 
@@ -163,6 +157,7 @@ namespace Engine {
 	void RenderAPI::UpdateDraw()
 	{
 
+		memcpy(mCBPassData.GetCPUMemory(), &mViewProjectionMatrix, sizeof(PassData));
 		D3D12_RESOURCE_BARRIER barrier = {};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
@@ -189,12 +184,8 @@ namespace Engine {
 
 		mCommandList.GFXCmd()->IASetVertexBuffers(0, 1, &mDynamicVBView);
 
-		/*
 
-		Do drawing stuff here
-
-
-		*/
+		mCommandList.GFXCmd()->SetGraphicsRootConstantBufferView(0, mCBPassData.Get()->GetGPUVirtualAddress());
 
 		mCommandList.GFXCmd()->DrawInstanced(3, 1, 0, 0);
 

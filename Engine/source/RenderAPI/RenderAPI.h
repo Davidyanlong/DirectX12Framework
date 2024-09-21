@@ -40,6 +40,8 @@ private:
 	D12Resource  mDynamicVertexBuffer;
 	D3D12_VERTEX_BUFFER_VIEW mDynamicVBView;
 
+	D12Resource mCBPassData;
+
 	D3D12_VIEWPORT mViewport;
 	D3D12_RECT mSRRect;
 
