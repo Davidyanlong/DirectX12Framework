@@ -3,6 +3,8 @@
 #include "EngineMin.h"
 #include <Windows.h>
 
+#include <DirectXMath.h>
+
 #include "RenderDataTypes.h"
 
 #include "DirectX12/DXGI/DXGISwapChain.h"
@@ -40,6 +42,8 @@ private:
 
 	D3D12_VIEWPORT mViewport;
 	D3D12_RECT mSRRect;
+
+	DirectX::XMMATRIX mViewProjectionMatrix;
 
 private:
 

@@ -121,6 +121,22 @@ namespace Engine {
 		mSRRect.top = 0;
 		mSRRect.bottom = mViewport.Height;
 
+
+		DirectX::XMMATRIX viewMatrix;
+
+		viewMatrix = DirectX::XMMatrixLookAtLH({ 0.0f,1.0f,-3.0f }, { 0.0f,0.0f,0.0f }, { 0.0f, 1.0f, 0.0f });
+
+		DirectX::XMMATRIX projectionMatrix;
+
+		projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(1.22173047f, 16.0f / 9.0f, 1, 50.0);
+
+		mViewProjectionMatrix = viewMatrix * projectionMatrix;
+
+
+
+
+
+
 		/*
 		OUTLINE FOR THE NEXT STEPS:
 
