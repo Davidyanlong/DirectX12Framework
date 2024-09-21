@@ -92,6 +92,7 @@
     <ClInclude Include="source\EngineMin.h" />
     <ClInclude Include="source\Helper.h" />
     <ClInclude Include="source\pch.h" />
+    <ClInclude Include="source\RenderAPI\DirectX12\Descriptors\D12DescriptorHeap.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.h" />
     <ClInclude Include="source\RenderAPI\DirectX12\DXGI\DXGISwapChain.h" />
@@ -114,6 +115,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="source\RenderAPI\DirectX12\Descriptors\D12DescriptorHeap.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIAdapter.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGIFactory.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\DXGI\DXGISwapChain.cpp" />
