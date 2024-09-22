@@ -14,6 +14,7 @@
 #include "DirectX12/Resource/D12Resource.h"
 #include "DirectX12/Pipeline/D12PipelineState.h"
 #include "DirectX12/Descriptors/D12DescriptorHeap.h"
+#include "DirectX12/MemoryManagent/BufferUploader.h"
 
 namespace Engine {
 class YT_API RenderAPI
@@ -43,10 +44,15 @@ private:
 	D3D12_RECT mSRRect;
 
 	D12DescriptorHeap mDepthDescHeap;
+	BufferUploader mBufferUploader;
 
 
-	D12Resource  mDynamicVertexBuffer;
-	D3D12_VERTEX_BUFFER_VIEW mDynamicVBView;
+
+	D12Resource mVertexBuffer;
+	D12Resource mIndexBuffer;
+
+	D3D12_VERTEX_BUFFER_VIEW mVBView;
+	D3D12_INDEX_BUFFER_VIEW mIBView;
 
 	D12Resource mCBPassData;
 

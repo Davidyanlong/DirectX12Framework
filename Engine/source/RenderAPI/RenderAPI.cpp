@@ -51,111 +51,97 @@ namespace Engine {
 
 		mSwapChain.Initialize(mDevice.Get(), factory.Get(), mCommandQueue.Get(), hwnd, mWidth, mHeight);
 
-		mDynamicVertexBuffer.Initialize(mDevice.Get(), KBs(16), D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_GENERIC_READ);
-		mDynamicVertexBuffer.Get()->SetName(L"Dynamic vertex buffer");
+		mBufferUploader.Initialize(mDevice.Get(), KBs(64));
 
+		mVertexBuffer.Initialize(mDevice.Get(), KBs(8), D3D12_HEAP_TYPE_DEFAULT, D3D12_RESOURCE_STATE_COMMON);
+		mVertexBuffer.Get()->SetName(L"Vertex buffer");
 
-
-		/*
-
-		RIGHT NOW FOR SCREEN SPACE COORDINATES VERTICES ONLY HAVE X AND Y mapped to (-1,1) -> (1,-1)
-
-		*/
 
 		std::vector<Vertex> vertices;
 
-#define G_BOX_VERTICES 30
+#define G_BOX_VERTICES 8
 		Vertex verticesbox[G_BOX_VERTICES];
-
-		// front
-		verticesbox[0].position = { -1.0f,-1.0f,-1.0f };
-		verticesbox[0].color = { 0.0f,1.0f,0.0f,1.0f };
-		verticesbox[1].position = { -1.0f,1.0f,-1.0f };
-		verticesbox[1].color = { 0.0f,1.0f,0.0f,1.0f };
-		verticesbox[2].position = { 1.0f,-1.0f,-1.0f };
-		verticesbox[2].color = { 0.0f,1.0f,0.0f,1.0f };
-
-		verticesbox[3].position = { -1.0f,1.0f,-1.0f };
-		verticesbox[3].color = { 0.0f,1.0f,0.0f,1.0f };
-		verticesbox[4].position = { 1.0f,1.0f,-1.0f };
-		verticesbox[4].color = { 0.0f,1.0f,0.0f,1.0f };
-		verticesbox[5].position = { 1.0f,-1.0f,-1.0f };
-		verticesbox[5].color = { 0.0f,1.0f,0.0f,1.0f };
-
-
-		// back
-		verticesbox[6].position = { -1.0f,1.0f,1.0f };
+		verticesbox[0].position = { -1.0f, 1.0f, 1.0f };
+		verticesbox[1].position = { -1.0f, -1.0f, 1.0f };
+		verticesbox[2].position = { -1.0f, 1.0f, -1.0f };
+		verticesbox[3].position = { -1.0f, -1.0f, -1.0f };
+		verticesbox[4].position = { 1.0f, 1.0f, 1.0f };
+		verticesbox[4].color = { 1.0f,0.0f,0.0f,1.0f };
+		verticesbox[5].position = { 1.0f, -1.0f, 1.0f };
+		verticesbox[5].color = { 1.0f,0.0f,0.0f,1.0f };
+		verticesbox[6].position = { 1.0f, 1.0f, -1.0f };
 		verticesbox[6].color = { 1.0f,0.0f,0.0f,1.0f };
-		verticesbox[7].position = { -1.0f,-1.0f,1.0f };
-		verticesbox[7].color = { 1.0f,1.0f,0.0f,1.0f };
-		verticesbox[8].position = { 1.0f,1.0f,1.0f };
-		verticesbox[8].color = { 1.0f,1.0f,0.0f,1.0f };
+		verticesbox[7].position = { 1.0f, -1.0f, -1.0f };
+		verticesbox[7].color = { 1.0f,0.0f,0.0f,1.0f };
 
-		verticesbox[9].position = { -1.0f,-1.0f,1.0f };
-		verticesbox[9].color = { 1.0f,1.0f,0.0f,1.0f };
-		verticesbox[10].position = { 1.0f,-1.0f,1.0f };
-		verticesbox[10].color = { 1.0f,1.0f,0.0f,1.0f };
-		verticesbox[11].position = { 1.0f,1.0f,1.0f };
-		verticesbox[11].color = { 1.0f,1.0f,0.0f,1.0f };
+		mBufferUploader.Upload((D12Resource*)mVertexBuffer.GetAddressOf(), verticesbox, sizeof(Vertex) * G_BOX_VERTICES,
+			(D12CommandList*)mCommandList.GetAddressOf(), (D12CommandQueue*)mCommandQueue.GetAddressOf(), D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
 
+	    mVBView.BufferLocation = mVertexBuffer.Get()->GetGPUVirtualAddress();
+		mVBView.StrideInBytes = sizeof(Vertex);
+		mVBView.SizeInBytes = KBs(8);
 
-		// left
-		verticesbox[12].position = { -1.0f,-1.0f,1.0f };
-		verticesbox[12].color = { 0.0f,0.0f,1.0f,1.0f };
-		verticesbox[13].position = { -1.0f,1.0f,1.0f };
-		verticesbox[13].color = { 0.0f,0.0f,1.0f,1.0f };
-		verticesbox[14].position = { -1.0f,-1.0f,-1.0f };
-		verticesbox[14].color = { 0.0f,0.0f,1.0f,1.0f };
+#define G_INDICES 36
+		
+		UINT32 indicies[G_INDICES];
+		indicies[0] = 0;
+		indicies[1] = 2;
+		indicies[2] = 4;
 
+		indicies[3] = 2;
+		indicies[4] = 7;
+		indicies[5] = 3;
 
-		verticesbox[15].position = { -1.0f,1.0f,1.0f };
-		verticesbox[15].color = { 0.0f,1.0f,1.0f,1.0f };
-		verticesbox[16].position = { -1.0f,1.0f,-1.0f };
-		verticesbox[16].color = { 0.0f,1.0f,1.0f,1.0f };
-		verticesbox[17].position = { -1.0f,-1.0f,-1.0f };
-		verticesbox[17].color = { 0.0f,1.0f,1.0f,1.0f };
+		indicies[6] = 6;
+		indicies[7] = 5;
+		indicies[8] = 7;
 
-		// right
-		verticesbox[18].position = { 1.0f,-1.0f,1.0f };
-		verticesbox[18].color = { 0.0f,0.0f,1.0f,1.0f };
-		verticesbox[19].position = { 1.0f,-1.0f,-1.0f };
-		verticesbox[19].color = { 0.0f,0.0f,1.0f,1.0f };
-		verticesbox[20].position = { 1.0f,1.0f,1.0f };
-		verticesbox[20].color = { 0.0f,0.0f,1.0f,1.0f };
+		indicies[9] = 1;
+		indicies[10] = 7;
+		indicies[11] = 5;
 
-		verticesbox[21].position = { 1.0f,1.0f,1.0f };
-		verticesbox[21].color = { 0.0f,1.0f,1.0f,1.0f };
-		verticesbox[22].position = { 1.0f,-1.0f,-1.0f };
-		verticesbox[22].color = { 0.0f,1.0f,1.0f,1.0f };
-		verticesbox[23].position = { 1.0f,1.0f,-1.0f };
-		verticesbox[23].color = { 0.0f,1.0f,1.0f,1.0f };
+		indicies[12] = 0;
+		indicies[13] = 3;
+		indicies[14] = 1;
 
-		// bottom
-		verticesbox[24].position = { -1.0f,-1.0f,-1.0f };
-		verticesbox[24].color = { 1.0f,0.0f,1.0f,1.0f };
-		verticesbox[25].position = { -1.0f,-1.0f,1.0f };
-		verticesbox[25].color = { 1.0f,0.0f,1.0f,1.0f };
-		verticesbox[26].position = { 1.0f,-1.0f,-1.0f };
-		verticesbox[26].color = { 1.0f,0.0f,1.0f,1.0f };
+		indicies[15] = 4;
+		indicies[16] = 1;
+		indicies[17] = 5;
 
-		verticesbox[27].position = { -1.0f,-1.0f,1.0f };
-		verticesbox[27].color = { 1.0f,0.0f,1.0f,1.0f };
-		verticesbox[28].position = { 1.0f,-1.0f,1.0f };
-		verticesbox[28].color = { 1.0f,0.0f,1.0f,1.0f };
-		verticesbox[29].position = { 1.0f,-1.0f,-1.0f };
-		verticesbox[29].color = { 1.0f,0.0f,1.0f,1.0f };
+		indicies[18] = 4;
+		indicies[19] = 6;
+		indicies[20] = 2;
+
+		indicies[21] = 2;
+		indicies[22] = 6;
+		indicies[23] = 7;
+
+		indicies[24] = 6;
+		indicies[25] = 4;
+		indicies[26] = 5;
 
 
+		indicies[27] = 1;
+		indicies[28] = 3;
+		indicies[29] = 7;
 
+		indicies[30] = 0;
+		indicies[31] = 2;
+		indicies[32] = 3;
 
-		memcpy(mDynamicVertexBuffer.GetCPUMemory(), verticesbox, sizeof(Vertex) * G_BOX_VERTICES);
+		indicies[33] = 4;
+		indicies[34] = 0;
+		indicies[35] = 1;
 
+		mIndexBuffer.Initialize(mDevice.Get(), KBs(16), D3D12_HEAP_TYPE_DEFAULT, D3D12_RESOURCE_STATE_COMMON);
+		mIndexBuffer->SetName(L"Index buffer");
 
+		mBufferUploader.Upload((D12Resource*)mIndexBuffer.GetAddressOf(), indicies, sizeof(UINT32)* G_INDICES,
+			(D12CommandList*)mCommandList.GetAddressOf(), (D12CommandQueue*)mCommandQueue.GetAddressOf());
 
-		mDynamicVBView.BufferLocation = mDynamicVertexBuffer.Get()->GetGPUVirtualAddress();
-		mDynamicVBView.StrideInBytes = sizeof(Vertex);
-		mDynamicVBView.SizeInBytes = KBs(16);
-
+		mIBView.BufferLocation = mIndexBuffer.Get()->GetGPUVirtualAddress();
+		mIBView.Format = DXGI_FORMAT_R32_UINT;
+		mIBView.SizeInBytes = KBs(16);
 
 
 		mBasePipeline.Initialize(mDevice.Get());
@@ -187,41 +173,14 @@ namespace Engine {
 
 
 		DirectX::XMMATRIX viewMatrix;
-
-		viewMatrix = DirectX::XMMatrixLookAtLH({ 0.0f,3.0f,-1.2f }, { 0.0f,0.0f,0.0f }, { 0.0f, 1.0f, 0.0f });
+		viewMatrix = DirectX::XMMatrixLookAtLH({ 2.0f,1.5f,-3.0f }, { 0.0f,0.0f,0.0f }, { 0.0f, 1.0f, 0.0f });
 
 		DirectX::XMMATRIX projectionMatrix;
-
 		projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(1.22173047f, 16.0f / 9.0f, 1, 50.0);
 
 		mViewProjectionMatrix = viewMatrix * projectionMatrix;
 
 		mCBPassData.Initialize(mDevice.Get(), Utils::CalculateConstantbufferAlignment(sizeof(PassData)), D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_GENERIC_READ);
-
-
-
-
-		/*
-		OUTLINE FOR THE NEXT STEPS:
-
-		Bind the rendertaget to every part of our outputmerger - check
-
-		We want to bind the rootsignature and pipeline to the GPU / draw proces - check
-		Tell how to interpret the data -> set the primitive topology - check
-
-
-		Bind a datastorage to the "pipeline"/input assembler and give it a view (vertex buffer view) [check]
-
-		DrawCall [check]
-
-		Viewport
-
-		Scissor rect
-
-		*/
-
-
-
 	}
 
 	void RenderAPI::UpdateDraw()
@@ -256,12 +215,14 @@ namespace Engine {
 		mCommandList.GFXCmd()->SetPipelineState(mBasePipeline.Get());
 		mCommandList.GFXCmd()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		mCommandList.GFXCmd()->IASetVertexBuffers(0, 1, &mDynamicVBView);
+		mCommandList.GFXCmd()->IASetVertexBuffers(0, 1, &mVBView);
+		mCommandList.GFXCmd()->IASetIndexBuffer(&mIBView);
 
 
 		mCommandList.GFXCmd()->SetGraphicsRootConstantBufferView(0, mCBPassData.Get()->GetGPUVirtualAddress());
 
-		mCommandList.GFXCmd()->DrawInstanced(G_BOX_VERTICES, 1, 0, 0);
+		//mCommandList.GFXCmd()->DrawInstanced(G_BOX_VERTICES, 1, 0, 0);
+		mCommandList.GFXCmd()->DrawIndexedInstanced(G_INDICES, 1, 0, 0, 0);
 
 		barrier = {};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
@@ -290,7 +251,7 @@ namespace Engine {
 	void RenderAPI::Release()
 	{
 
-		mDynamicVertexBuffer.Release();
+		mVertexBuffer.Release();
 
 		mCommandQueue.FlushQueue();
 
