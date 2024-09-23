@@ -10,9 +10,18 @@ struct VS_OUTPUT
     float4 color : COLOR;
 };
 
+struct LightData
+{
+    float3 position;
+    float strenght;
+    float3 direction;
+    float padding;
+};
+
 struct PassData
 {
     float4x4 viewproj;
+    LightData light;
 };
 
 ConstantBuffer<PassData> gPassData : register(b0);

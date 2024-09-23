@@ -242,12 +242,26 @@ namespace Engine {
 		mViewProjectionMatrix = viewMatrix * projectionMatrix;
 
 		mCBPassData.Initialize(mDevice.Get(), Utils::CalculateConstantbufferAlignment(sizeof(PassData)), D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_GENERIC_READ);
-	}
+		
+		mMaterialBuffer1.Initialize(mDevice.Get(), Utils::CalculateConstantbufferAlignment(sizeof(MaterialCelShader)), D3D12_HEAP_TYPE_DEFAULT, D3D12_RESOURCE_STATE_COMMON);
+		mMaterialBuffer1->SetName(L"Material CB 1");
+
+		MaterialCelShader material;
+		material.diffuseAlbedo = { 1.0f, 0.0f,0.05f, 1.0f };
+		mBufferUploader.Upload((D12Resource*)mMaterialBuffer1.GetAddressOf(), &material, sizeof(MaterialCelShader),
+			(D12CommandList*)mCommandList.GetAddressOf(), (D12CommandQueue*)mCommandQueue.GetAddressOf(), D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
+
+		mLights[0].direction = { 0.0f, -1.0f, 0.0f };
+		mLights[0].strength = 1.0f;
+
+}
 
 	void RenderAPI::UpdateDraw()
 	{
 
 		memcpy(mCBPassData.GetCPUMemory(), &mViewProjectionMatrix, sizeof(PassData));
+		memcpy((BYTE*)mCBPassData.GetCPUMemory()+sizeof(PassData), &mLights[0], sizeof(Light));
+
 		D3D12_RESOURCE_BARRIER barrier = {};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
@@ -281,6 +295,7 @@ namespace Engine {
 
 
 		mCommandList.GFXCmd()->SetGraphicsRootConstantBufferView(0, mCBPassData.Get()->GetGPUVirtualAddress());
+		mCommandList.GFXCmd()->SetGraphicsRootConstantBufferView(1, mMaterialBuffer1.Get()->GetGPUVirtualAddress());
 
 		//mCommandList.GFXCmd()->DrawInstanced(G_BOX_VERTICES, 1, 0, 0);
 		mCommandList.GFXCmd()->DrawIndexedInstanced(G_INDICES, 1, 0, 0, 0);

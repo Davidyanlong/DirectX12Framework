@@ -50,13 +50,14 @@ private:
 
 	D12Resource mVertexBuffer;
 	D12Resource mIndexBuffer;
+	D12Resource mMaterialBuffer1;
 
 	D3D12_VERTEX_BUFFER_VIEW mVBView;
 	D3D12_INDEX_BUFFER_VIEW mIBView;
 
 	D12Resource mCBPassData;
-
-
+	Render::Light mLights[8];
+	
 
 	DirectX::XMMATRIX mViewProjectionMatrix;
 
