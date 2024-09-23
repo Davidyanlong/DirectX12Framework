@@ -7,7 +7,7 @@ struct VS_INPUT
 struct VS_OUTPUT
 {
     float4 position : SV_POSITION;
-    float4 color : COLOR;
+    float3 normal : NORMAL;
 };
 
 struct LightData
@@ -32,7 +32,7 @@ VS_OUTPUT main(VS_INPUT input)
     VS_OUTPUT output;
     
     output.position = mul(gPassData.viewproj, float4(input.position, 1.0f));
-    output.color = float4(input.normal * 0.5 + 0.5, 1.0f);
+    output.normal = input.normal;
     
     return output;
 }

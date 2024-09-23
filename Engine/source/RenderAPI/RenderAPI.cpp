@@ -234,7 +234,7 @@ namespace Engine {
 
 
 		DirectX::XMMATRIX viewMatrix;
-		viewMatrix = DirectX::XMMatrixLookAtLH({ 2.0f,1.5f,-3.0f }, { 0.0f,0.0f,0.0f }, { 0.0f, 1.0f, 0.0f });
+		viewMatrix = DirectX::XMMatrixLookAtLH({ -3.0f,3.5f,-3.0f }, { 0.0f,0.0f,0.0f }, { 0.0f, 1.0f, 0.0f });
 
 		DirectX::XMMATRIX projectionMatrix;
 		projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(1.22173047f, 16.0f / 9.0f, 1, 50.0);
@@ -247,11 +247,12 @@ namespace Engine {
 		mMaterialBuffer1->SetName(L"Material CB 1");
 
 		MaterialCelShader material;
-		material.diffuseAlbedo = { 1.0f, 0.0f,0.05f, 1.0f };
+		material.diffuseAlbedo = { 0.65f, 0.0f,0.025f, 1.0f };
 		mBufferUploader.Upload((D12Resource*)mMaterialBuffer1.GetAddressOf(), &material, sizeof(MaterialCelShader),
 			(D12CommandList*)mCommandList.GetAddressOf(), (D12CommandQueue*)mCommandQueue.GetAddressOf(), D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
 
-		mLights[0].direction = { 0.0f, -1.0f, 0.0f };
+		mLights[0].position = { 0.0f,0.0f,0.0f };
+		mLights[0].direction = { 0.5f, -1.0f, 0.0f };
 		mLights[0].strength = 1.0f;
 
 }
@@ -259,8 +260,8 @@ namespace Engine {
 	void RenderAPI::UpdateDraw()
 	{
 
-		memcpy(mCBPassData.GetCPUMemory(), &mViewProjectionMatrix, sizeof(PassData));
-		memcpy((BYTE*)mCBPassData.GetCPUMemory()+sizeof(PassData), &mLights[0], sizeof(Light));
+		memcpy(mCBPassData.GetCPUMemory(), &mViewProjectionMatrix, sizeof(PassData::viewproject));
+		memcpy((BYTE*)mCBPassData.GetCPUMemory()+sizeof(PassData::viewproject), &mLights[0], sizeof(Light));
 
 		D3D12_RESOURCE_BARRIER barrier = {};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
