@@ -50,6 +50,7 @@ namespace Engine {
 		if (mByteCode && mByteCode->GetBufferPointer())
 		{
 			mByteCode->Release();
+			mByteCode = nullptr;
 		}
 	}
 }

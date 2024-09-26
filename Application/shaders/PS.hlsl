@@ -1,4 +1,6 @@
-struct PS_INPUT //from the VS_OUTPUT
+
+//Base pixel shader
+struct PS_INPUT 
 {
 	
     float4 position : SV_POSITION;
@@ -31,7 +33,7 @@ ConstantBuffer<MaterialData> gMaterialData : register(b2);
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-    float intensity = max(0.02f, dot(-(gPassData.light.direction), normalize(input.normal)));
+    float intensity = max(0.02f, dot(-(normalize(gPassData.light.direction)), normalize(input.normal)));
    
     return gMaterialData.diffuseAlbedo * intensity;
 
