@@ -34,6 +34,8 @@ private:
 	DXGISwapChain mSwapChain;
 
 	D12PipelineState mBasePipeline;
+	D12PipelineState mPlanarShadowPipeline;
+
 	D12Resource mDepthBuffer;
 
 	D3D12_VIEWPORT mViewport;

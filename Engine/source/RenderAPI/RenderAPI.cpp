@@ -207,13 +207,14 @@ namespace Engine {
 
 
 		mBasePipeline.Initialize(mDevice.Get());
+		mPlanarShadowPipeline.InitializeAsTransparent(mDevice.Get());
 
 		mDepthBuffer.InitializeAsDepthBuffer(mDevice.Get(), mWidth, mHeight);
 
 		mDepthDescHeap.InitializeDepthHeap(mDevice.Get());
 
 		D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
-		dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+		dsvDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 		dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
 		dsvDesc.Texture2D.MipSlice = 0;
 		dsvDesc.Flags = D3D12_DSV_FLAG_NONE;
@@ -235,7 +236,7 @@ namespace Engine {
 
 
 		DirectX::XMMATRIX viewMatrix;
-		viewMatrix = DirectX::XMMatrixLookAtLH({ -8.0f,3.5f,-8.0f }, { 0.0f,0.0f,0.0f }, { 0.0f, 1.0f, 0.0f });
+		viewMatrix = DirectX::XMMatrixLookAtLH({ 8.0f, 8.5f,-8.0f }, { 0.0f,0.0f,0.0f }, { 0.0f, 1.0f, 0.0f });
 
 		DirectX::XMMATRIX projectionMatrix;
 		projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(1.22173047f, 16.0f / 9.0f, 1, 50.0);
@@ -272,7 +273,7 @@ namespace Engine {
 
 	
 		mLights[0].position = { 0.0f,0.0f,0.0f };
-		mLights[0].direction = { 1.0f, -1.0f, 0.0f };
+		mLights[0].direction = { 0.0f,-1.0f,1.0f };
 		mLights[0].strength = 1.0f;
 
 		//Transform allocations
