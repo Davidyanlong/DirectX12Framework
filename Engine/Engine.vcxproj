@@ -103,6 +103,7 @@
     <ClInclude Include="source\RenderAPI\DirectX12\Resource\D12Resource.h" />
     <ClInclude Include="source\RenderAPI\RenderAPI.h" />
     <ClInclude Include="source\RenderAPI\RenderDataTypes.h" />
+    <ClInclude Include="source\System\Timers\TimeStep.h" />
     <ClInclude Include="source\Utilities\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +127,7 @@
     <ClCompile Include="source\RenderAPI\DirectX12\Pipeline\HLSLShader.cpp" />
     <ClCompile Include="source\RenderAPI\DirectX12\Resource\D12Resource.cpp" />
     <ClCompile Include="source\RenderAPI\RenderAPI.cpp" />
+    <ClCompile Include="source\System\Timers\TimeStep.cpp" />
     <ClCompile Include="source\Utilities\Utilities.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

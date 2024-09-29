@@ -247,7 +247,7 @@ namespace Engine {
 
 
 		DirectX::XMMATRIX viewMatrix;
-		viewMatrix = DirectX::XMMatrixLookAtLH({ 0.0f, 6.5f,-6.0f,0.0f }, { 0.0f,0.0f,0.0f,0.0f }, { 0.0f,1.0f,0.0f,0.0f });
+		viewMatrix = DirectX::XMMatrixLookAtLH({ 0.0f, 8.5f,-8.0f,0.0f }, { 0.0f,0.0f,0.0f,0.0f }, { 0.0f,1.0f,0.0f,0.0f });
 		//DirectX::XMMatrixLookToLH({VEC3 pos},{VEC3 normalizedForward}, {VEC3 normalized updirection});
 
 		DirectX::XMMATRIX projectionMatrix;
@@ -260,7 +260,6 @@ namespace Engine {
 		//material allocations
 
 		{
-			mMaterialBuffers.reserve(4);
 
 			mMaterialBuffers.emplace_back(D12Resource());
 			mMaterialBuffers[0].Initialize(mDevice.Get(), Utils::CalculateConstantbufferAlignment(sizeof(MaterialCelShader)), D3D12_HEAP_TYPE_DEFAULT, D3D12_RESOURCE_STATE_COMMON);
@@ -316,12 +315,12 @@ namespace Engine {
 		//Transform allocations
 		{
 
-			mObjTransforms.reserve(3);
 			mObjTransforms.emplace_back(D12Resource());
 			mObjTransforms[0].Initialize(mDevice.Get(), Utils::CalculateConstantbufferAlignment(sizeof(ObjectData)), D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_GENERIC_READ);
 			mObjTransforms[0]->SetName(L"Transform 1 CB");
 
 			ObjectData tempData;
+			tempData.transform.r[3] = { 0.0f,1.0f,0.0f,1.0f };
 			memcpy(mObjTransforms[0].GetCPUMemory(), &tempData, sizeof(ObjectData));
 
 			mObjTransforms.emplace_back(D12Resource());
@@ -329,7 +328,7 @@ namespace Engine {
 			mObjTransforms[1]->SetName(L"Transform 2 CB");
 			tempData.transform.r[0] = { .3f,0.0f,1.0f,0.0f };
 
-			tempData.transform.r[3] = { -3.0f,0.0f,-2.0f,0.0f };
+			tempData.transform.r[3] = { -3.0f,1.0f,-2.0f,1.0f };
 
 
 			memcpy(mObjTransforms[1].GetCPUMemory(), &tempData, sizeof(ObjectData));
@@ -341,9 +340,9 @@ namespace Engine {
 			tempData.transform = DirectX::XMMatrixIdentity();
 
 			tempData.transform.r[0] = { 1000.0f,0.0,0.0,0.0f };
-			tempData.transform.r[1] = { 0.0,0.3f,0.0,0.0f };
+			tempData.transform.r[1] = { 0.0,1.0f,0.0,0.0f };
 			tempData.transform.r[2] = { 0.0,0.0,1000.0f,0.0f };
-			tempData.transform.r[3] = { 0.0f,-4.0f,0.0f,1.0f };
+			tempData.transform.r[3] = { 0.0f,-1.0f,0.0f,1.0f };
 
 			memcpy(mObjTransforms[2].GetCPUMemory(), &tempData, sizeof(ObjectData));
 
