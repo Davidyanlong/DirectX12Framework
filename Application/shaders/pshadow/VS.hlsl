@@ -34,9 +34,8 @@ VS_OUTPUT main(VS_INPUT input)
 {
     VS_OUTPUT output;
     
-    float3 worldPos = input.position;
-    worldPos = mul(gObjectData.transform, float4(worldPos, 1.0f)).xyz;
-    output.position = mul(gPassData.viewproj, float4(worldPos, 1.0f));
+    float4 worldProjectPos = mul(gObjectData.transform, float4(input.position, 1.0f));
+    output.position = mul(gPassData.viewproj, worldProjectPos);
     output.normal = mul((float3x3) gObjectData.transform, input.normal);
     
     

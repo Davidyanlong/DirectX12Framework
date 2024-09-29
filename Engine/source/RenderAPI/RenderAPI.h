@@ -60,6 +60,9 @@ private:
 	std::vector<D12Resource> mObjTransforms;
 	std::vector<D12Resource> mShadowTransform;
 
+	std::vector<Render::ObjectData> mObjTransformsCPU;
+	std::vector<D12Resource> mShadowTransforms;
+
 	D12Resource mCBPassData;
 	Render::Light mLights[8];
 

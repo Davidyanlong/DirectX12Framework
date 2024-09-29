@@ -31,7 +31,7 @@ ConstantBuffer<MaterialData> gMaterialData : register(b2);
 float4 main(PS_INPUT input) : SV_TARGET
 {
    
-    float dp = dot((normalize(gPassData.light.direction)), normalize(input.normal));
+    float dp = dot(-(normalize(gPassData.light.direction)), normalize(input.normal));
     
     if (dp > 0)
     {
