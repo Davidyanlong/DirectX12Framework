@@ -21,7 +21,7 @@ public:
 
 	void Initialize(HWND hwnd, const UINT width, const UINT height);
 
-	void UpdateDraw();
+	void UpdateDraw(const float ts);
 
 	void Release();
 
@@ -65,6 +65,9 @@ private:
 
 	D12Resource mCBPassData;
 	Render::Light mLights[8];
+
+private:
+	float mLightCycle = 0.5f; //this ranges from 0.0 - 1.0f
 
 private:
 

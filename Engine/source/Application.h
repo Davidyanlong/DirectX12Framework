@@ -5,6 +5,7 @@
 #include <Windows.h>
 
 #include "RenderAPI/RenderAPI.h"
+#include "System/Timers/TimeStep.h"
 
 namespace Engine {
 	class YT_API Application
@@ -25,6 +26,7 @@ namespace Engine {
 	private:   // subsystems
 
 		RenderAPI mRenderer;
+		Timer::TimeStep mTimeStepSystem;
 
 	private:   // variables
 		bool mIsRunning = false;
